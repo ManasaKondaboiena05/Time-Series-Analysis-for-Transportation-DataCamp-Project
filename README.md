@@ -20,6 +20,7 @@ The aim of the project was twofold:
 The first objective was achieved through a time-indexed loop that iterated between the earliest departure and the latest landing time, incrementing a counter whenever a flight was airborne during a given minute. The result, stored in the variable max_teams_in_flight, reflects the maximum number of teams in the air at the same time during the 2102 season.
 
 **Fuel Cost Estimation**
+
 To address the second objective, I employed the Box-Jenkins methodology to model the daily jet fuel prices and forecast them throughout 2102. Here's a breakdown of the steps followed:
 
 **- Identification:**
@@ -33,4 +34,9 @@ To address the second objective, I employed the Box-Jenkins methodology to model
 
 **- Forecasting & Cost Calculation:**
   Despite the normality issues, the model’s forecasts were used to estimate daily fuel prices, which were then merged with the flight schedule data to compute the total fuel cost for the 2102 season, stored in      total_fuel_spend_2102_dollars.
+
+
+**Final Thoughts**
+
+While the model diagnostics revealed certain limitations, particularly regarding the normality of residuals, the Box-Jenkins process provided a structured and rigorous framework for modeling and forecasting. These issues highlight potential areas for further refinement, such as applying transformations (e.g., Box-Cox) or experimenting with alternative model structures.
 
