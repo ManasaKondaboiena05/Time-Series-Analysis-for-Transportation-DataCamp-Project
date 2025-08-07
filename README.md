@@ -8,8 +8,29 @@ This project analyzes team travel patterns for the NBA 2102 season. It focuses o
 
 Thsi project used two datasets: fuel prices in 2101 and team flights 2102. This first dataset included one column, namely, fuel prices. The second dataset included the following columns: departure time, landing time, team name, flight duration. 
 
-**How does it work?**
+**Aim of the project**
 
-The aim of the project was to find the maximum number of teams that were in the air simulateneously and to find the total fuel cost for the sason 2102. The former was accomplished through a simple loop iterated through the minimum departure time and maximum landing time and added to the counter whenever it encountered a flight that was in the air at that moment. The maximum numer of teams that were in the air simultaneously is stored in a variable called 'max_teams_in_flight'.
+The aim of the project was twofold:
 
-The latter was accomplished through a thorough process. I followed the Box-Jenking method to analyse and model the fuel prices dataset. The first step is Identification. In this step, I used the Augmented Dicky-Fuller test to determine whether the data was stationary. After finding a p-value higher than 0.05, I checked for seasonality. I had initially guessed that the data was seasonal as fuel prices tend to to be cyclical. I used normal and seasonal differencing and found the data to be stationary after performing the ADF test again. I used the 'plot_acf' and 'plot_pacf' functions to plot the graphs for the differenced dataset and dound the following values for the model: p (normal AR order), q (normal MA order), P (seasonal AR order), Q (seasonal MA order). The second step is Modelling. This was done using the SARIMAX object from statsmodels. 
+1. To identify the maximum number of teams that were in the air simultaneously during the 2102 season.
+2. To estimate the total fuel cost incurred by these flights over the course of the season.
+
+**Maximum Teams in Air**
+
+The first objective was achieved through a time-indexed loop that iterated between the earliest departure and the latest landing time, incrementing a counter whenever a flight was airborne during a given minute. The result, stored in the variable max_teams_in_flight, reflects the maximum number of teams in the air at the same time during the 2102 season.
+
+**Fuel Cost Estimation**
+To address the second objective, I employed the Box-Jenkins methodology to model the daily jet fuel prices and forecast them throughout 2102. Here's a breakdown of the steps followed:
+
+**- Identification:**
+  I conducted the Augmented Dickey-Fuller (ADF) test on the raw fuel price data, which revealed non-stationarity. Suspecting seasonality (a common trait in fuel prices), I applied both first-order and seasonal      differencing. The differenced series passed the ADF test, indicating stationarity.
+
+**- Model Selection:**
+  Using ACF and PACF plots, I selected suitable orders for both seasonal and non-seasonal components and fit a SARIMAX model to the original series.
+
+**- Diagnostics:**
+  I used plot_diagnostics() to inspect model residuals. While the residuals showed no autocorrelation and passed the Ljung-Box test, there were violations of normality observed in both the Q-Q plot and the          histogram of residuals. The Jarque-Bera statistic’s p-value was 0, suggesting non-normality.
+
+**- Forecasting & Cost Calculation:**
+  Despite the normality issues, the model’s forecasts were used to estimate daily fuel prices, which were then merged with the flight schedule data to compute the total fuel cost for the 2102 season, stored in      total_fuel_spend_2102_dollars.
+
